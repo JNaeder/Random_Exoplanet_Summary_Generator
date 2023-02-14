@@ -1,6 +1,9 @@
 import requests
 import random
 import time
+import os
+import dotenv
+import openai
 
 
 class planet_poem_generator:
@@ -26,20 +29,31 @@ class planet_poem_generator:
         random_index = random.randint(0, planet_length)
         return self._all_planets[random_index]
 
-    def make_openai_prompt(self, planet_data):
+    def make_openai_prompt(self):
+        planet_data = self.random_planet()
         planet_name = planet_data["pl_name"]
         host_name = planet_data["hostname"]
 
-        prompt = f"Write a summary about this exoplanet. Planet's name is {planet_name} and it's host star's name is " \
-                 f"{host_name}"
-        print(prompt)
+        prompt = f"Write a summary about this exoplanet. Planet's name is {planet_name} and it's host star's name is {host_name}"
+        return prompt
 
+    def openai_test(self):
+        dotenv.load_dotenv()
+        api_key = os.getenv("OPENAI_API")
+        organization = os.getenv("OPENAI_ORG")
+        openai.api_key = api_key
+        openai.organization = organization
+        engines = openai.Engine.list()
+        selected_engine = engines.data[45]["id"]
+        prompt = self.make_openai_prompt()
+        completion = openai.Completion.create(engine=selected_engine, prompt=prompt, max_tokens=500)
+        print(completion.choices[0].text)
 
 
 if __name__ == "__main__":
+    print("Request Starting...")
     start_time = time.time()
     planet_gen = planet_poem_generator()
-    # planet_gen.set_all_planets()
-    random_planet = planet_gen.random_planet()
-    planet_gen.make_openai_prompt(random_planet)
-    print(time.time() - start_time)
+    planet_gen.openai_test()
+    time_taken = time.time() - start_time
+    print(f"This request took {round(time_taken, 2)} seconds")
