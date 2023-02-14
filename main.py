@@ -6,7 +6,7 @@ import dotenv
 import openai
 
 
-class planet_poem_generator:
+class planet_summary_generator:
     def __init__(self):
         self._nasa_base_url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+"
         self._nasa_query_format = "&format=json"
@@ -53,7 +53,7 @@ class planet_poem_generator:
 if __name__ == "__main__":
     print("Request Starting...")
     start_time = time.time()
-    planet_gen = planet_poem_generator()
+    planet_gen = planet_summary_generator()
     planet_gen.openai_test()
     time_taken = time.time() - start_time
     print(f"This request took {round(time_taken, 2)} seconds")
