@@ -11,7 +11,7 @@ class PlanetSummaryGenerator:
         """
         Initialize class parameters
         """
-        self._nasa_base_url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+top+5000+"
+        self._nasa_base_url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+"
         self._nasa_query_end = "+from+ps&format=json"
         self._nasa_query_columns = ["pl_name"]
         self._all_planets = self.set_planets()
