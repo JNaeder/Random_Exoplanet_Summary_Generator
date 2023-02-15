@@ -1,5 +1,5 @@
 from flask import Flask
-from main import planet_summary_generator
+from main import PlanetSummaryGenerator
 
 app = Flask(__name__)
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def main():
     print("Starting")
-    planet_generator = planet_summary_generator()
-    output = planet_generator.openai_test()
+    planet_generator = PlanetSummaryGenerator()
+    output = planet_generator.make_summary()
     return output
 
