@@ -43,6 +43,7 @@ class planet_summary_generator:
         organization = os.getenv("OPENAI_ORG")
         openai.api_key = api_key
         openai.organization = organization
+        print("Keys", api_key, organization)
         prompt = self.make_openai_prompt()
         completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=500)
         return completion.choices[0].text
