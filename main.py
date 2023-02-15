@@ -45,7 +45,7 @@ class planet_summary_generator:
         openai.organization = organization
         prompt = self.make_openai_prompt()
         completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=500)
-        print(completion.choices[0].text)
+        return completion.choices[0].text
 
 
 if __name__ == "__main__":
